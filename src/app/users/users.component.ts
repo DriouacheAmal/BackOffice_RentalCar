@@ -17,65 +17,51 @@ export class UsersComponent implements OnInit {
     this.getAllUsers(); // Fetch users when the component initializes
   }
 
- 
   getAllUsers() {
     this.userService.getAllUsers().subscribe((res: any) => {
-        console.log(res);
-        this.users = res;
+      console.log(res);
+      this.users = res;
     });
-}
-//editUser(userId: number): void {
-  //this.userService.editUser(userId).subscribe({
-   // next: (updatedUser) => {
-     // console.log('User edited successfully:', updatedUser);
-      // Optionally, update the user in the UI
-    //},
-    //error: (error) => {
-      //console.error('Error editing user:', error);
-      // Handle error
-    //}
- // });
-//}
-confirmDelete(user: any) {
-  const isConfirmed = confirm(`Are you sure you want to delete ${user.firstname}?`);
-  if (isConfirmed) {
-    this.userService.deleteUser(user.userId).subscribe(
-      () => {
-        console.log('User deleted successfully');
-        // Remove the deleted user from the users array
-        this.users = this.users.filter((u: any) => u.userId !== user.userId);
-        // Optionally, add the deleted user to the deletedUsers array
-        this.deletedUsers.push(user);
+  }
+
+  toggleUserStatus(user: any, status: string): void {
+    this.userService.updateUserStatus(user.userId, status).subscribe(
+      (res: any) => {
+        console.log(`User ${status.toLowerCase()}d successfully`, res);
+        user.active = status; // Update the user's status in the frontend
       },
-      (error) => {
-        console.error('Error deleting user:', error);
+      (error: any) => {
+        console.error(`Error ${status.toLowerCase()}ing user`, error);
       }
     );
   }
-}
 
-/*deleteUser(id : number){
-  this.userService.deleteUser(id).subscribe((res)=>{
-    console.log(res);
-    this.getAllUsers();
-  } )
-}*/
+  confirmDelete(user: any) {
+    const isConfirmed = confirm(`Are you sure you want to deactivate ${user.firstname}?`);
+    if (isConfirmed) {
+      this.toggleUserStatus(user, 'INACTIVE');
+    }
+    
+  }
 
-deleteUser(id : number): void {
-  // Show a confirmation dialog
-  const confirmDelete = confirm('Are you sure you want to delete this user?');
+  deleteUser(user: any): void {
+    const confirmDelete = confirm('Are you sure you want to delete this user?');
 
-  // If the user confirms the deletion
-  if (confirmDelete) {
-    // Call the service's deleteCategory() method
-    this.userService.deleteUser(id).subscribe(() => {
-      // Remove the deleted category from the list
-      this.users = this.users.filter((user: { id: number; }) => user.id !== id);
-      this.getAllUsers();
+    if (confirmDelete) {
+      this.toggleUserStatus(user, 'INACTIVE'); // Change the user's status to 'INACTIVE' instead of removing
+    }
+  }
 
-    });
-
-     }
-}
-   
+  restoreUser(user: any): void {
+    this.userService.restoreUser(user.userId).subscribe(
+      (res) => {
+        console.log('User restored successfully:', res);
+        this.deletedUsers = this.deletedUsers.filter((u: any) => u.userId !== user.userId);
+        this.getAllUsers();
+      },
+      (error) => {
+        console.error('Error restoring user:', error);
+      }
+    );
+  }
 }

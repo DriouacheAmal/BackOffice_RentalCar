@@ -7,7 +7,7 @@
     background-color: #f8f9fa;
     padding: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Add a box-shadow */
-    margin-top: 150px;
+    margin-top: 30px; /* Reduced margin-top value */
 
 }
 
@@ -22,7 +22,6 @@
 .sidebar .nav-item {
     margin-bottom: 1rem;
 }
-
 /* Styling for links in the sidebar */
 .sidebar .nav-link {
     display: block;
@@ -35,5 +34,53 @@
 /* Add hover effect for links */
 .sidebar .nav-link:hover {
     background-color: #0d6efd; /* Change hover background color as desired */
-    color: #ffffff; /* Optionally, change the text color on hover */
+    color: #ffffff; /* Optionally, change the text color on hover */
+}
+
+.container-fluid {
+  height: 100vh;
+  display: flex;
+  flex-direction: row;
+}
+
+.row {
+  display: flex;
+  flex-grow: 1;
+}
+
+.sidebar {
+  height: 100%;
+  border-right: 1px solid #ddd;
+}
+
+.col-3 {
+  flex: 0 0 25%;
+  max-width: 25%;
+}
+
+.col-9 {
+  flex: 0 0 75%;
+  max-width: 75%;
+  padding: 20px;
+}
+
+.nav-item {
+  margin-bottom: 10px;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  color: #333;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.nav-link:hover {
+  background-color: #f0f0f0;
+}
+
+.nav-link i {
+  margin-right: 10px;
 }

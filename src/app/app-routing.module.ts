@@ -8,29 +8,35 @@ import { ProductsComponent } from './products/products.component';
 import { OrdersComponent } from './orders/orders.component';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
+import { AuthGuard } from './guards/auth.guards.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 //import { LogoutComponent } from './logout/logout.component';
 
 
 const routes: Routes = [
     { path: '', redirectTo: '/login', pathMatch: 'full' },
-   // { path: '**', redirectTo: '/login' },
-    {path:'login', component:LoginComponent},
-    {path:'', component:LayoutComponent, children:[
-    { path: 'dashboard', component: DashboardComponent },
-    { path: 'users', component: UsersComponent },
-    { path: 'categories', component: CategoriesComponent },
-    { path: 'subcategories', component: SubcategoriesComponent },
-    { path: 'products', component: ProductsComponent },
-    { path: 'orders', component: OrdersComponent }
-]},
-    
+  { path: 'login', component: LoginComponent },
+  {
+    path: '',
+    component: LayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard] },
+      { path: 'users', component: UsersComponent, canActivate: [AuthGuard] },
+      { path: 'categories', component: CategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'subcategories', component: SubcategoriesComponent, canActivate: [AuthGuard] },
+      { path: 'products', component: ProductsComponent, canActivate: [AuthGuard] },
+      { path: 'orders', component: OrdersComponent, canActivate: [AuthGuard] },
+    ]
+  }
 
 ];
 
 @NgModule({
     imports: [RouterModule.forRoot(routes)],
-    exports: [RouterModule]
+    exports: [RouterModule],
+    providers: [Location]
+
 })
 export class AppRoutingModule {}
 

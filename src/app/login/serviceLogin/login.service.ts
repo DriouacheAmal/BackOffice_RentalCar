@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+/*import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class LoginService {
-  private baseUrl = 'http://localhost:8087';
+  private baseUrl = 'http://localhost:8088';
   apiUrl: any;
   router: any;
 
@@ -34,10 +34,10 @@ export class LoginService {
   }
  /* logout():void{
     localStorage.removeItem('token');
-  }*/
+  }
 
   isLoggedIn():boolean{
     return !!localStorage.getItem('token');
   }
 
-}
+}*/

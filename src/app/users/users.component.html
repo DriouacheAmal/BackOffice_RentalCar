@@ -5,6 +5,7 @@
       <th>Last Name</th>
       <th>Username</th>
       <th>PhoneNumber</th>
+      <th>Status</th>
       <th>Actions</th>
     </tr>
   </thead>
@@ -22,16 +23,16 @@
       <td>
         <p class="fw-normal mb-1">{{ user.phoneNumber }}</p>
       </td>
-      <!--<td>
-        <span class="badge badge-{{ user.statusClass }} rounded-pill d-inline">{{ user.status }}</span>
-      </td>-->
       <td>
-        <button type="button" class="btn btn-link btn-sm btn-rounded" >
-          <!-- Replace with Edit icon -->
-          <i class="fas fa-edit"></i>
-        </button>
-        <button type="button" class="btn btn-link btn-sm btn-rounded text-danger" (click)="deleteUser(user.id)">
-          <!-- Replace with Delete icon -->
+        <span 
+          [ngClass]="{'badge bg-success': user.active === 'ACTIVE', 'badge bg-danger': user.active === 'INACTIVE'}">
+          {{ user.active }}
+        </span>
+        <button *ngIf="user.active === 'ACTIVE'" type="button" class="btn btn-link btn-sm text-danger" (click)="toggleUserStatus(user, 'INACTIVE')">Deactivate</button>
+        <button *ngIf="user.active === 'INACTIVE'" type="button" class="btn btn-link btn-sm text-success" (click)="toggleUserStatus(user, 'ACTIVE')">Activate</button>
+      </td>
+      <td>
+        <button type="button" class="btn btn-link btn-sm btn-rounded text-danger" (click)="deleteUser(user)">
           <i class="fas fa-trash-alt"></i>
         </button>
       </td>
@@ -44,38 +45,8 @@
   <h4>Deleted Users</h4>
   <ul>
     <li *ngFor="let deletedUser of deletedUsers">
-      {{ deletedUser.name }} 
-      <button type="button" class="btn btn-link btn-sm" >
-        Restore
-      </button>
+      {{ deletedUser.firstname }} {{ deletedUser.lastname }} 
+      <button type="button" class="btn btn-link btn-sm" (click)="restoreUser(deletedUser)">Restore</button>
     </li>
   </ul>
-</div>
-
-<!-- Modal -->
-<div class="modal" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="editUserModalLabel">Edit User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-      </div>
-      <div class="modal-body">
-        <!-- Add form fields to edit user details -->
-        <div class="mb-3">
-          <label for="editName" class="form-label">Name</label>
-          <input type="text" class="form-control" id="editName" [(ngModel)]="editedUser.name">
-        </div>
-        <div class="mb-3">
-          <label for="editEmail" class="form-label">Email</label>
-          <input type="email" class="form-control" id="editEmail" [(ngModel)]="editedUser.email">
-        </div>
-        <!-- Add more form fields as needed -->
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" >Save changes</button>
-      </div>
-    </div>
-  </div>
 </div>

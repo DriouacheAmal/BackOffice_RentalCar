@@ -20,9 +20,11 @@ import { UserService } from './services/users-service.service';
 import { LoginComponent } from './login/login.component';
 import { LayoutComponent } from './layout/layout.component';
 import { ChartComponent } from './chart/chart.component';
+import { DataService } from './data.service';
 
 
 @NgModule({
+
   declarations: [
     AppComponent,
     DashboardComponent,
@@ -36,7 +38,7 @@ import { ChartComponent } from './chart/chart.component';
     SidebarComponent,
     LoginComponent,
     LayoutComponent,
-    ChartComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,
@@ -45,9 +47,8 @@ import { ChartComponent } from './chart/chart.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [
-    UserService 
-  ],
+  providers: [UserService , DataService],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }

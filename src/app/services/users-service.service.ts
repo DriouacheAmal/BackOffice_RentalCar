@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class UserService {
-  private baseUrl = 'http://localhost:8081/users';
+  private baseUrl = 'http://localhost:8088';
 
   constructor(private http: HttpClient) { }
 
@@ -19,8 +19,7 @@ export class UserService {
   }
 
   deleteUser(userId: number): Observable<any> {
-    // Implement logic to delete user
-    // For example:
+    
     return this.http.delete(`${this.baseUrl}/${userId}`);
   }
 

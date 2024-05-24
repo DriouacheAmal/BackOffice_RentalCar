@@ -1,8 +1,12 @@
-<app-navbar></app-navbar>
-
-<div class="d-flex">
-  <app-sidebar></app-sidebar>
-  <div class="flex-grow-1 p-3">
-    <router-outlet></router-outlet>
+<!-- layout.component.html -->
+<div class="container-fluid">
+  <app-navbar></app-navbar>
+  <div class="row">
+    <div class="col-3">
+      <app-sidebar></app-sidebar>
+    </div>
+    <div class="col-9">
+      <router-outlet></router-outlet>
+    </div>
   </div>
 </div>
